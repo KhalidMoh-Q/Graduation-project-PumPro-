@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "578652789229",
+    "project_id": "pumpro-d469b",
+    "storage_bucket": "pumpro-d469b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578652789229:android:416bcae592002a549befe4",
+        "android_client_info": {
+          "package_name": "com.example.pumpro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBplrikUV5iXlG9qnRF0PxMa-4p3pKlOfs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
