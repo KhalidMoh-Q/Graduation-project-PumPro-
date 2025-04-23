@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'calculator_screen.dart';
 import 'training_plans_screen.dart';
 import 'cardio_screen.dart';
+import 'warmup_recovery_screen.dart';
+import 'mistakes_injuries_screen.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -77,7 +79,12 @@ class HomePage extends StatelessWidget {
                   Icons.self_improvement,
                   Colors.green,
                   () {
-                    // Navigate to Warm Up & Recovery screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WarmupRecoveryScreen(),
+                      ),
+                    );
                   },
                 ),
                 _buildMenuButton(
@@ -86,7 +93,12 @@ class HomePage extends StatelessWidget {
                   Icons.healing,
                   Colors.red,
                   () {
-                    // Navigate to Mistakes & Injuries screen
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MistakesInjuriesScreen(),
+                      ),
+                    );
                   },
                 ),
                 _buildMenuButton(

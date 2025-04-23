@@ -29,10 +29,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return linux;
       default:
         throw UnsupportedError(
           'DefaultFirebaseOptions are not supported for this platform.',
@@ -41,46 +38,55 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
-    appId: '1:578652789229:web:f4090c4ca5e015b29befe4',
-    messagingSenderId: '578652789229',
-    projectId: 'pumpro-d469b',
-    authDomain: 'pumpro-d469b.firebaseapp.com',
-    storageBucket: 'pumpro-d469b.firebasestorage.app',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'YOUR-APP-ID',
+    messagingSenderId: 'YOUR-SENDER-ID',
+    projectId: 'YOUR-PROJECT-ID',
+    authDomain: 'YOUR-AUTH-DOMAIN',
+    storageBucket: 'YOUR-STORAGE-BUCKET',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBplrikUV5iXlG9qnRF0PxMa-4p3pKlOfs',
-    appId: '1:578652789229:android:416bcae592002a549befe4',
-    messagingSenderId: '578652789229',
-    projectId: 'pumpro-d469b',
-    storageBucket: 'pumpro-d469b.firebasestorage.app',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'YOUR-APP-ID',
+    messagingSenderId: 'YOUR-SENDER-ID',
+    projectId: 'YOUR-PROJECT-ID',
+    storageBucket: 'YOUR-STORAGE-BUCKET',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB2jjax_4J3elMtUMwskYTj0ZvVvPYPyeU',
-    appId: '1:578652789229:ios:4c00fc0a25efe9249befe4',
-    messagingSenderId: '578652789229',
-    projectId: 'pumpro-d469b',
-    storageBucket: 'pumpro-d469b.firebasestorage.app',
-    iosBundleId: 'com.example.pumpro',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'YOUR-APP-ID',
+    messagingSenderId: 'YOUR-SENDER-ID',
+    projectId: 'YOUR-PROJECT-ID',
+    storageBucket: 'YOUR-STORAGE-BUCKET',
+    iosClientId: 'YOUR-IOS-CLIENT-ID',
+    iosBundleId: 'YOUR-IOS-BUNDLE-ID',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyB2jjax_4J3elMtUMwskYTj0ZvVvPYPyeU',
-    appId: '1:578652789229:ios:4c00fc0a25efe9249befe4',
-    messagingSenderId: '578652789229',
-    projectId: 'pumpro-d469b',
-    storageBucket: 'pumpro-d469b.firebasestorage.app',
-    iosBundleId: 'com.example.pumpro',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'YOUR-APP-ID',
+    messagingSenderId: 'YOUR-SENDER-ID',
+    projectId: 'YOUR-PROJECT-ID',
+    storageBucket: 'YOUR-STORAGE-BUCKET',
+    iosClientId: 'YOUR-IOS-CLIENT-ID',
+    iosBundleId: 'YOUR-IOS-BUNDLE-ID',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
-    appId: '1:578652789229:web:bc664803c3b642c09befe4',
-    messagingSenderId: '578652789229',
-    projectId: 'pumpro-d469b',
-    authDomain: 'pumpro-d469b.firebaseapp.com',
-    storageBucket: 'pumpro-d469b.firebasestorage.app',
+    apiKey: 'YOUR-API-KEY',
+    appId: 'YOUR-APP-ID',
+    messagingSenderId: 'YOUR-SENDER-ID',
+    projectId: 'YOUR-PROJECT-ID',
+    storageBucket: 'YOUR-STORAGE-BUCKET',
+  );
+
+  static const FirebaseOptions linux = FirebaseOptions(
+    apiKey: 'YOUR-API-KEY',
+    appId: 'YOUR-APP-ID',
+    messagingSenderId: 'YOUR-SENDER-ID',
+    projectId: 'YOUR-PROJECT-ID',
+    storageBucket: 'YOUR-STORAGE-BUCKET',
   );
 }

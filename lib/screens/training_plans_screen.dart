@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'arnold_split_screen.dart';
+import 'full_body_screen.dart';
+import 'push_pull_legs_screen.dart';
+import 'pro_split_screen.dart';
+import 'alternatives_screen.dart';
 
 class TrainingPlansScreen extends StatelessWidget {
   const TrainingPlansScreen({super.key});
@@ -32,18 +37,28 @@ class TrainingPlansScreen extends StatelessWidget {
               Colors.blue,
               Icons.fitness_center,
               () {
-                // Navigate to Pro Split details
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProSplitScreen(),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 16),
             _buildPlanButton(
               context,
-              'Push Pull Legs',
-              'Classic 3-day split routine',
+              'Full Body',
+              'Complete full body workout routine',
               Colors.green,
-              Icons.sync,
+              Icons.fitness_center,
               () {
-                // Navigate to PPL details
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const FullBodyScreen(),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 16),
@@ -54,18 +69,28 @@ class TrainingPlansScreen extends StatelessWidget {
               Colors.orange,
               Icons.sports_gymnastics,
               () {
-                // Navigate to Arnold Split details
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ArnoldSplitScreen(),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 16),
             _buildPlanButton(
               context,
-              'Full Body',
-              'Complete body workout in each session',
+              'Push Pull Legs',
+              'Classic 3-day split focusing on movement patterns',
               Colors.purple,
               Icons.accessibility_new,
               () {
-                // Navigate to Full Body details
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const PushPullLegsScreen(),
+                  ),
+                );
               },
             ),
             const SizedBox(height: 16),
@@ -76,7 +101,12 @@ class TrainingPlansScreen extends StatelessWidget {
               Colors.red,
               Icons.shuffle,
               () {
-                // Navigate to Alternatives details
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AlternativesScreen(),
+                  ),
+                );
               },
             ),
           ],
