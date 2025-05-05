@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../services/user_service.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -9,6 +10,7 @@ class CalculatorScreen extends StatefulWidget {
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _userService = UserService();
 
   final _ageController = TextEditingController();
   final _heightController = TextEditingController();
@@ -20,6 +22,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
 
   double? _calculatedCalories;
   Map<String, double>? _macros;
+  bool _isSaving = false;
 
   final List<String> _activityLevels = [
     'Sedentary',
@@ -67,6 +70,42 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
     }
   }
 
+  Future<void> _saveResults() async {
+    if (_calculatedCalories == null || _macros == null) return;
+
+    setState(() => _isSaving = true);
+    try {
+      await _userService.saveCalculatorResults({
+        'dailyCalories': _calculatedCalories!.round(),
+        'protein': _macros!['Protein']!.round(),
+        'carbs': _macros!['Carbs']!.round(),
+        'fat': _macros!['Fat']!.round(),
+      });
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Results saved successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error saving results. Please try again.'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isSaving = false);
+      }
+    }
+  }
+
   void _calculateCalories() {
     if (_formKey.currentState!.validate()) {
       final age = double.parse(_ageController.text);
@@ -96,6 +135,8 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         _calculatedCalories = totalCalories;
         _macros = macros;
       });
+
+      _saveResults();
     }
   }
 
@@ -324,37 +365,19 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  // Calculate Button
-                  ElevatedButton(
-                    onPressed: _calculateCalories,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: const Text(
-                      'Calculate',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
                   // Results
-                  if (_calculatedCalories != null && _macros != null)
+                  if (_calculatedCalories != null && _macros != null) ...[
+                    const SizedBox(height: 30),
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        color: Colors.orange.withOpacity(0.1),
+                        color: Colors.green.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.green.withOpacity(0.3),
+                        ),
                       ),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text(
                             'Your Results',
@@ -365,32 +388,67 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          _buildResultRow(
-                            'Daily Calories',
-                            '${_calculatedCalories!.round()} kcal',
-                            Icons.local_fire_department,
+                          Text(
+                            'Daily Calories: ${_calculatedCalories!.round()} kcal',
+                            style: const TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                            ),
                           ),
-                          const SizedBox(height: 12),
-                          _buildResultRow(
-                            'Protein',
-                            '${_macros!['Protein']!.round()}g',
-                            Icons.fitness_center,
+                          const SizedBox(height: 8),
+                          Text(
+                            'Protein: ${_macros!['Protein']!.round()}g',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
                           ),
-                          const SizedBox(height: 12),
-                          _buildResultRow(
-                            'Carbs',
-                            '${_macros!['Carbs']!.round()}g',
-                            Icons.grain,
+                          Text(
+                            'Carbs: ${_macros!['Carbs']!.round()}g',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
                           ),
-                          const SizedBox(height: 12),
-                          _buildResultRow(
-                            'Fat',
-                            '${_macros!['Fat']!.round()}g',
-                            Icons.water_drop,
+                          Text(
+                            'Fat: ${_macros!['Fat']!.round()}g',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
                           ),
                         ],
                       ),
                     ),
+                  ],
+
+                  const SizedBox(height: 30),
+                  ElevatedButton(
+                    onPressed: _isSaving ? null : _calculateCalories,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: _isSaving
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : const Text(
+                            'Calculate',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                  ),
                 ],
               ),
             ),
@@ -429,31 +487,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         ),
         validator: validator,
       ),
-    );
-  }
-
-  Widget _buildResultRow(String label, String value, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.orange[300], size: 24),
-        const SizedBox(width: 12),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[400],
-          ),
-        ),
-        const Spacer(),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-      ],
     );
   }
 }

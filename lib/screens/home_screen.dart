@@ -1,12 +1,58 @@
 import 'package:flutter/material.dart';
+import '../services/user_service.dart';
+import '../models/user_model.dart';
 import 'calculator_screen.dart';
 import 'training_plans_screen.dart';
 import 'cardio_screen.dart';
 import 'warmup_recovery_screen.dart';
 import 'mistakes_injuries_screen.dart';
+import 'login_screen.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final UserService _userService = UserService();
+  UserModel? _currentUser;
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    setState(() => _isLoading = true);
+    try {
+      final user = await _userService.getCurrentUser();
+      setState(() {
+        _currentUser = user;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isLoading = false);
+      print('Error loading user data: $e');
+    }
+  }
+
+  Future<void> _signOut() async {
+    try {
+      await _userService.signOut();
+      if (mounted) {
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const LoginScreen()),
+          (route) => false,
+        );
+      }
+    } catch (e) {
+      print('Error signing out: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,23 +60,15 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home'),
         backgroundColor: const Color(0xFF5D4FB7),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.person),
-            onPressed: () {
-              _showProfileDialog(context);
-            },
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const Text(
-              'Welcome to Pumpro!',
-              style: TextStyle(
+            Text(
+              'Welcome to Pumpro${_currentUser != null ? ", ${_currentUser!.email.split('@')[0]}!" : "!"}',
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -64,13 +102,14 @@ class HomePage extends StatelessWidget {
                   'Calculator',
                   Icons.calculate_outlined,
                   Colors.orange,
-                  () {
-                    Navigator.push(
+                  () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const CalculatorScreen(),
                       ),
                     );
+                    _loadUserData();
                   },
                 ),
                 _buildMenuButton(
@@ -123,109 +162,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _showProfileDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          backgroundColor: const Color(0xFF2A2A2A),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      colors: [
-                        Colors.purple.withOpacity(0.8),
-                        Colors.orange.withOpacity(0.8),
-                      ],
-                    ),
-                  ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Icon(
-                      Icons.person,
-                      size: 50,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  'User Profile',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const Text(
-                  'Email: user@example.com', // Replace with actual user email
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                const Divider(color: Colors.grey),
-                const SizedBox(height: 12),
-                const Text(
-                  'Calculator Results',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                const Text(
-                  'Daily Calories: 2500 kcal\nProtein: 180g\nCarbs: 250g\nFat: 83g',
-                  // Replace with actual calculator results
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white70,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: Colors.orange,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30,
-                      vertical: 12,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text(
-                    'Close',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   Widget _buildMenuButton(
     BuildContext context,
     String title,
@@ -258,7 +194,7 @@ class HomePage extends StatelessWidget {
           onTap: onPressed,
           borderRadius: BorderRadius.circular(16),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

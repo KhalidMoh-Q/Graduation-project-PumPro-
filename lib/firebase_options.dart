@@ -38,55 +38,57 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    authDomain: 'YOUR-AUTH-DOMAIN',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
+    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
+    appId: '1:578652789229:web:f4090c4ca5e015b29befe4',
+    messagingSenderId: '578652789229',
+    projectId: 'pumpro-d469b',
+    authDomain: 'pumpro-d469b.firebaseapp.com',
+    storageBucket: 'pumpro-d469b.firebasestorage.app',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
+    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
+    appId: '1:578652789229:android:416bcae592002a549befe4',
+    messagingSenderId: '578652789229',
+    projectId: 'pumpro-d469b',
+    storageBucket: 'pumpro-d469b.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
-    iosClientId: 'YOUR-IOS-CLIENT-ID',
-    iosBundleId: 'YOUR-IOS-BUNDLE-ID',
+    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
+    appId: '1:578652789229:ios:4c00fc0a25efe9249befe4',
+    messagingSenderId: '578652789229',
+    projectId: 'pumpro-d469b',
+    storageBucket: 'pumpro-d469b.firebasestorage.app',
+    iosClientId:
+        '578652789229-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com',
+    iosBundleId: 'com.example.pumpro',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
-    iosClientId: 'YOUR-IOS-CLIENT-ID',
-    iosBundleId: 'YOUR-IOS-BUNDLE-ID',
+    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
+    appId: '1:578652789229:ios:4c00fc0a25efe9249befe4',
+    messagingSenderId: '578652789229',
+    projectId: 'pumpro-d469b',
+    storageBucket: 'pumpro-d469b.firebasestorage.app',
+    iosClientId:
+        '578652789229-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.apps.googleusercontent.com',
+    iosBundleId: 'com.example.pumpro',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
+    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
+    appId: '1:578652789229:web:f4090c4ca5e015b29befe4',
+    messagingSenderId: '578652789229',
+    projectId: 'pumpro-d469b',
+    storageBucket: 'pumpro-d469b.firebasestorage.app',
   );
 
   static const FirebaseOptions linux = FirebaseOptions(
-    apiKey: 'YOUR-API-KEY',
-    appId: 'YOUR-APP-ID',
-    messagingSenderId: 'YOUR-SENDER-ID',
-    projectId: 'YOUR-PROJECT-ID',
-    storageBucket: 'YOUR-STORAGE-BUCKET',
+    apiKey: 'AIzaSyAGzzvH-Rg6boAi7-t3xUplPgzJfQRE46M',
+    appId: '1:578652789229:web:f4090c4ca5e015b29befe4',
+    messagingSenderId: '578652789229',
+    projectId: 'pumpro-d469b',
+    storageBucket: 'pumpro-d469b.firebasestorage.app',
   );
 }
